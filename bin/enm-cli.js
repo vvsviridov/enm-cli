@@ -1,40 +1,46 @@
 #!/usr/bin/env node
 
-const program = require('commander')
+const { Command, Option } = require('commander')
 const pkg = require('../package.json')
 const inquirer = require('inquirer')
+const { isEmpty } = require('../util/validation')
 
 require('dotenv').config()
 
 const AutoProvisioning = require('../lib/components/AutoProvisioning/AutoProvisioning')
 const TopologyBrowser = require('../lib/components/TopologyBrowser/TopologyBrowser')
 
-const inputHandler = require('../lib/components/AutoProvisioning/inputHandler')
 const logError = require('../util/logError')
 
+const applications = ['tplg', 'prvn']
+
+const program = new Command()
 program
 	.version(pkg.version)
-	.option('-l, --login <letters>', 'ENM User Login')
-	.option('-p, --password <letters>', 'ENM User Password')
-	.option('-a, --application <letters>', 'Start specified application')
+	// .option('-l, --login <letters>', 'ENM User Login')
+	// .option('-p, --password <letters>', 'ENM User Password')
+	.addOption(new Option('-l, --login <letters>', 'ENM User Login').env('LOGIN'))
+	.addOption(new Option('-p, --password <letters>', 'ENM User Password').env('PASSWORD'))
+	.addOption(new Option('-a, --application <letters>', 'Start specified application')
+		.choices(applications)
+		.default('tplg')
+	)
 	.requiredOption('-u, --url <letters>', 'ENM Url')
 	.parse(process.argv)
 
 
 const options = program.opts()
 
-const applications = ['tplg', 'prvn']
 
 
 async function promptUsername() {
-	if (process.env.LOGIN) return process.env.LOGIN
 	const input = await inquirer.prompt([
 		{
 			type: 'input',
 			name: 'value',
 			suffix: chalk.bgGreen('?'),
 			message: 'Type ENM login',
-			// validate: input => isValidNumber(input, attributeData.constraints),
+			validate: isEmpty,
 		}
 	])
 	return input.value
@@ -42,13 +48,12 @@ async function promptUsername() {
 
 
 async function promptPassword() {
-	if (process.env.PASSWORD) return process.env.PASSWORD
 	const input = await inquirer.prompt([
 		{
 			type: 'password',
 			name: 'value',
 			message: `Type ${options.login}'s ENM password`,
-			// validate: input => isValidNumber(input, attributeData.constraints),
+			validate: isEmpty,
 		}
 	])
 	return input.value
