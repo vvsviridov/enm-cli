@@ -6,10 +6,10 @@ function createNext(filter) {
   const commands = this.commands.filter(cmd => cmd.toLowerCase().includes(filter.toLowerCase()))
   const choices = this.choices.filter(choice => choice.toLowerCase().includes(filter.toLowerCase()))
   return [
+    ...choices,
     separator,
     ...commands.map(cmd => `[${cmd}]`),
     separator,
-    ...choices,
   ]
 }
 

@@ -3,34 +3,50 @@
 const { Command, Option } = require('commander')
 const pkg = require('../package.json')
 const inquirer = require('inquirer')
+const path = require('path')
+
 const { isEmpty } = require('../util/validation')
 
-require('dotenv').config()
+require('dotenv').config({ path: [...__dirname.split(path.sep).slice(0,-1), '.env'].join(path.sep) })
 
-const AutoProvisioning = require('../lib/components/AutoProvisioning/AutoProvisioning')
-const TopologyBrowser = require('../lib/components/TopologyBrowser/TopologyBrowser')
+const AutoProvisioning = require('../lib/applications/AutoProvisioning/AutoProvisioning')
+const TopologyBrowser = require('../lib/applications/TopologyBrowser/TopologyBrowser')
 
 const logError = require('../util/logError')
 
-const applications = ['tplg', 'prvn']
+if (process.env.NODE_ENV === 'development') {
+	process.on('uncaughtException', function (exception) {
+	  console.log(exception); 
+	})
+}
+
+const applications = [
+	{
+		id: 'tplg',
+		appClass: TopologyBrowser,
+		name: 'Topology Browser',
+	}, 
+	{
+		id: 'prvn',
+		appClass: AutoProvisioning,
+		name: 'Auto Provisioning',
+	}
+]
+const appIds = applications.map(item => item.id)
 
 const program = new Command()
 program
 	.version(pkg.version)
-	// .option('-l, --login <letters>', 'ENM User Login')
-	// .option('-p, --password <letters>', 'ENM User Password')
 	.addOption(new Option('-l, --login <letters>', 'ENM User Login').env('LOGIN'))
 	.addOption(new Option('-p, --password <letters>', 'ENM User Password').env('PASSWORD'))
 	.addOption(new Option('-a, --application <letters>', 'Start specified application')
-		.choices(applications)
-		.default('tplg')
+		.choices(appIds)
 	)
-	.requiredOption('-u, --url <letters>', 'ENM Url')
+	.requiredOption('-u, --url <valid URL>', 'ENM Url')
 	.parse(process.argv)
 
 
 const options = program.opts()
-
 
 
 async function promptUsername() {
@@ -38,8 +54,8 @@ async function promptUsername() {
 		{
 			type: 'input',
 			name: 'value',
-			suffix: chalk.bgGreen('?'),
-			message: 'Type ENM login',
+			prefix: '👤',
+			message: 'Type ENM login:',
 			validate: isEmpty,
 		}
 	])
@@ -52,7 +68,8 @@ async function promptPassword() {
 		{
 			type: 'password',
 			name: 'value',
-			message: `Type ${options.login}'s ENM password`,
+			prefix: '🔑',
+			message: 'Type ENM password:',
 			validate: isEmpty,
 		}
 	])
@@ -62,37 +79,34 @@ async function promptPassword() {
 
 async function selectApplication() {
 	let selectedApp
-	if (options.application && options.application in applications) {
+	if (options.application && appIds.includes(options.application)) {
 		selectedApp = options.application
 	} else {
 		const input = await inquirer.prompt([
 			{
 				type: 'list',
 				name: 'application',
-				suffix: '💾',
-				message,
-				choices: applications
+				prefix: '💾',
+				message: 'Select Application:',
+				choices: applications.map(item => ({name: item.name, value: item.id, short: item.id}))
 			}])
 		selectedApp = input.application
 	}
-	return {
-		tplg: TopologyBrowser,
-		prvn: AutoProvisioning
-	}[selectedApp]
+	const { appClass } = applications.find(item => item.id === selectedApp)
+	const login = options.login || await promptUsername()
+	const password = options.password || await promptPassword()
+	return new appClass(login, password, options.url)
 }
 
 async function main() {
 	try {
-		const app = new selectApplication()(options.login || await promptUsername(), options.password || await promptPassword(), options.url)
-		const result = await app.login()
-		const { code } = result
-		if (code === 'SUCCESS') {
-			await app.inputHandler()
-			await app.logout()
-		}
+		const app = await selectApplication()
+		await app.login()
+		await app.inputHandler()
+		await app.logout()
 	} catch (error) {
 		logError(error)
 	}
 }
 
-; (async () => await main())()
+;(async () => await main())()

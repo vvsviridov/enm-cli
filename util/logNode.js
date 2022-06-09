@@ -3,7 +3,7 @@ const chalk = require('chalk')
 
 function logNodeStatus(statusEntries, indent = 4) {
   if (!statusEntries) {
-    throw new Error('No node status entries!')
+    throw new Error('No node status entries❗')
   }
   console.log('')
   statusEntries.forEach(entry => {
@@ -21,7 +21,7 @@ function logNodeStatus(statusEntries, indent = 4) {
 
 function logNodeProperties(attributes, attributeGroups, indent = 4) {
   if (!attributeGroups) {
-    throw new Error('No node attribute groups!')
+    throw new Error('No node attribute groups❗')
   }
   console.log('')
   logAttributes(attributes)
@@ -37,7 +37,7 @@ function logNodeProperties(attributes, attributeGroups, indent = 4) {
 
 function logAttributes(attributes, indent = 4) {
   if (!attributes) {
-    throw new Error('No node attributes!')
+    throw new Error('No node attributes❗')
   }
   attributes.forEach(attribute => {
     const { name, value } = attribute
