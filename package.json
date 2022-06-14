@@ -1,6 +1,6 @@
 {
   "name": "enm-cli",
-  "version": "1.0.0",
+  "version": "1.0.0a",
   "description": "This is a cli application for Ericsson Network Manager (ENM)",
   "bin": "./bin/enm-cli.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "Network",
     "Manager",
     "LTE",
+    "2G",
     "3G",
     "4G",
     "5G",

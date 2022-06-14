@@ -1,11 +1,11 @@
 # Cli application based on ENM AutoProvisioning API
 
-[![Github version](https://img.shields.io/github/package-json/version/vvsviridov/prvn-cli?label=prvn-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/prvn-cli)
-[![Npm version](https://img.shields.io/npm/v/prvn-cli?color=red&logo=npm&label=prvn-cli)](https://www.npmjs.com/package/prvn-cli)
+[![Github version](https://img.shields.io/github/package-json/version/vvsviridov/enm-cli?label=enm-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/enm-cli)
+[![Npm version](https://img.shields.io/npm/v/enm-cli?color=red&logo=npm&label=enm-cli)](https://www.npmjs.com/package/enm-cli)
 
 ## Main goal
 
-A simple CLI interface for AutoProvisioning API.
+A simple CLI interface for some of the Ericsson Network Manager applications.
 
 ## Installation
 
@@ -14,13 +14,13 @@ First you need **node.js** which can be downloaded from official site [nodejs.or
 Then you can run directly from NPM without installation
 
 ```
-npx prvn-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
+npx enm-cli -u https://enm.your.company.domain.com
 ```
 
 Or install with NPM
 
 ```
-npm i prvn-cli
+npm i enm-cli
 ```
 
 Or download this repository and run from the project root directory ...
@@ -39,7 +39,7 @@ npm link
 Now you can launch apllication
 
 ```
-prvn-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
+enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
 ```
 
 ## Usage
@@ -47,20 +47,26 @@ prvn-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
 Recommended environment is Windows Terminal (not _cmd.exe_) or any shell with rich formatting support. After application successfully launched youll see root content and available commands.
 
 ### Help Page
+
 ```
-> prvn-cli --help
-Usage: prvn-cli [options]
+> enm-cli --help
+Usage: enm-cli [options]
 
 Options:
-  -V, --version             output the version number
-  -l, --login <letters>     ENM User Login
-  -p, --password <letters>  ENM User Password
-  -u, --url <letters>       ENM Url
-  -h, --help                display help for command
+  -V, --version                output the version number
+  -l, --login <letters>        ENM User Login (env: LOGIN)
+  -p, --password <letters>     ENM User Password (env: PASSWORD)
+  -a, --application <letters>  Start specified application (choices: "tplg", "prvn")
+  -u, --url <valid URL>        ENM Url
+  -h, --help                   display help for command
 ```
+
+# AutoProvisioning Application
+
 ### Connection
+
 ```
->prvn-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
+>enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com -a prvn
 ✔ Login in...
 ✔ Getting projects...
 323 projects> (Use arrow keys or type to search)
@@ -164,6 +170,312 @@ Available commands are:
 - `[back]` - Return to project\s nodes.
 - `[exit]` - Exit this app.
 
+# TopologyBrowser Application
+
+```
+PS C:\> enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domian.com -a tplg
+✔ Login in...
+Authentication Successful
+✔ Starting Topology Browser...
+✔ Reading Topology...
+ SubNetwork=ONRM_ROOT_MO> (Use arrow keys or type to search)
+> SubNetwork=Core
+  SubNetwork=LTE
+  SubNetwork=RBS
+  SubNetwork=RNC
+  show
+  config
+  up
+  home
+  exit
+```
+
+### Commands
+
+> **Note:** _only `show` and `fdn` command can have parameter, all other commands haven't._
+
+- `[show] [<valid regex>]` - shows current object's attributes filtered with regex
+- `[config]` - enters _config_ mode
+- `[up]` - navigate up one level
+- `[fdn] [<valid FDN>]` - navigate to FDN
+- `[home]` - navigate to root folder
+- `[alarms]` - show alarms
+- `[search]` - searching specified node in topology
+- `[sync]` - initiate node CM synchronization
+- `[persistent]` - toggle persistent attributes inclusion
+- `[exit]` - logout and exit application
+
+Start typing and you see only matches commands to your input.
+
+```
+SubNetwork=ONRM_ROOT_MO> subn
+> SubNetwork=Core
+  SubNetwork=LTE
+  SubNetwork=RBS
+  SubNetwork=RNC
+SubNetwork=ONRM_ROOT_MO> exi
+>exit
+```
+
+You can navigate to the next level selecting object ...
+
+```
+SubNetwork=ONRM_ROOT_MO> subn
+  SubNetwork=Core
+  SubNetwork=LTE
+  SubNetwork=RBS
+> SubNetwork=RNC
+SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC>
+> MeContext=RNC01
+  MeContext=RNCTEST
+  MeContext=TEST
+```
+
+View objects attributes ...
+
+```
+SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC> show
+> show
+✔ Reading Topology...
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC
+
+  SubNetworkId: RNC
+
+SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC> MeContext=RNC01
+> MeContext=RNC01
+✔ Reading Topology...
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> show
+> show
+✔ Reading Topology...
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01
+
+  MeContextId: RNC01
+  neType: RNC
+  platformType: CPP
+```
+
+... show attributes with filter
+
+```
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> show Type
+> show type
+✔ Reading Topology...
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01
+
+  neType: RNC
+  platformType: CPP
+
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01>
+```
+
+Return one level up in FDN tree ...
+
+```
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> up
+> up
+✔ Reading Topology...
+SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC>
+```
+
+Return to the root from anywhere ...
+
+```
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> home
+> home
+✔ Reading Topology...
+SubNetwork=ONRM_ROOT_MO>
+```
+
+Go to specific FDN ...
+
+```
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> fdn NetworkElement=RBS01
+```
+
+And logout and exit ...
+
+```
+... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> exit
+> exit
+✔ Logout...
+Logout OK
+PS C:\>
+```
+
+### Config Mode
+
+To modify attributes _config_ mode is used.
+
+Available commands are:
+
+- `[commit]` - commiting changes to the network
+- `[check]` - view configuration changes
+- `[get]` - get attribute value
+- `[set]` - set attribute value
+- `[end]` - end config mode without commiting
+- `[exit]` - logout and exit application
+
+```
+... ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1> config
+> config
+✔ Reading Attributes...
+✔ Reading Attributes Data...
+
+    syncStatus: SYNCHRONIZED
+    ipAddress: 10.10.11.1
+    managementState: NORMAL
+    radioAccessTechnology: 4G, 3G
+
+... lement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(config)# (Use arrow keys or type to search)
+> acBarringForCsfb
+  acBarringForEmergency
+  acBarringForMoData
+  acBarringForMoSignalling
+  ...
+  commit
+  check
+  end
+  exit
+(Move up and down to reveal more choices)
+```
+
+To modify attribute select it ...
+
+```
+... lement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(config)# userLabel
+... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)#
+  commit
+  check
+  end
+  exit
+> get
+  set
+  description
+```
+
+Now you can get it ...
+
+```
+... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# get
+> get
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RBS,MeContext=ERBS01,ManagedElement=1,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)
+
+  userLabel: test1
+
+  Type: STRING
+
+```
+
+And set it's value ...
+
+```
+... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# set
+? userLabel (STRING): ? test_label
+```
+
+Check configuration before applying
+
+```
+... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# check
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RBS,MeContext=ERBS01,ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1
+
+  userLabel: test_label
+
+```
+
+Applying changes to the network ...
+
+```
+... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# commit
+
+  FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RBS,MeContext=ERBS01,ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1
+
+  userLabel: test_label
+✔ Commiting Config...
+Success
+```
+
+View attribute's description
+
+```
+... lement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(config)# acBarringForCsfb
+... S01,ENodeBFunction=1,EUtranCellFDD=test1(acBarringForCsfb)# description
+
+acBarringForCsfb: COMPLEX_REF
+
+DESCRIPTION
+      Access class barring parameters for mobile originating CSFB calls.
+The information is broadcasted in SIB2.
+
+TRAFFIC DISTURBANCES
+      Changing this attribute can cause loss of traffic.
+
+IMMUTABLE
+      false
+
+ACTIVE CHOICE CASE
+      null
+
+
+COMPLEX_REF
+    AcBarringConfig: AcBarringConfig
+
+
+acBarringTime: INTEGER  default: 64
+
+DESCRIPTION
+      Mean access barring time in seconds for mobile originating signalling.
+
+IMMUTABLE
+      false
+
+ACTIVE CHOICE CASE
+      null
+
+CONSTRAINTS
+    Nullable: false
+    Value Resolution: null
+
+
+acBarringForSpecialAC: LIST  default: false,false,false,false,false
+
+DESCRIPTION
+      Access class barring for AC 11-15. The first instance in the list is for AC 11, second is for AC 12, and so on.
+
+IMMUTABLE
+      false
+
+ACTIVE CHOICE CASE
+      null
+
+CONSTRAINTS
+    Nullable: false
+LISTREFERENCE
+    BOOLEAN
+CONSTRAINTS
+    Nullable: true
+
+
+acBarringFactor: INTEGER  default: 95
+
+DESCRIPTION
+      If the random number drawn by the UE is lower than this value, access is allowed. Otherwise the access is barred.
+
+IMMUTABLE
+      false
+
+ACTIVE CHOICE CASE
+      null
+
+CONSTRAINTS
+    Nullable: false
+    Value Resolution: null
+```
 
 ## Contribution
 
