@@ -1,4 +1,4 @@
-# Cli application based on ENM AutoProvisioning API
+# Cli application based on ENM (Ericsson Network Manager) API
 
 [![Github version](https://img.shields.io/github/package-json/version/vvsviridov/enm-cli?label=enm-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/enm-cli)
 [![Npm version](https://img.shields.io/npm/v/enm-cli?color=red&logo=npm&label=enm-cli)](https://www.npmjs.com/package/enm-cli)
