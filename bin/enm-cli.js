@@ -11,6 +11,7 @@ require('dotenv').config({ path: [...__dirname.split(path.sep).slice(0,-1), '.en
 
 const AutoProvisioning = require('../lib/applications/AutoProvisioning/AutoProvisioning')
 const TopologyBrowser = require('../lib/applications/TopologyBrowser/TopologyBrowser')
+const BulkImport = require('../lib/applications/BulkImport/BulkImport')
 
 const logError = require('../util/logError')
 
@@ -30,7 +31,12 @@ const applications = [
 		id: 'prvn',
 		appClass: AutoProvisioning,
 		name: 'Auto Provisioning',
-	}
+	},
+	{
+		id: 'bulk',
+		appClass: BulkImport,
+		name: 'Bulk Import',
+	},
 ]
 const appIds = applications.map(item => item.id)
 

@@ -1,6 +1,7 @@
 const chalk = require('chalk')
 
 function logError(err) {
+  // console.dir(err)
   try {
     if (!err.response) {
       const {
@@ -38,6 +39,17 @@ function logError(err) {
         errorTitle = `${data.errorCode}: ${data.title}`
         errorBody = data.body
         errorDetails = data.detail
+      }
+      //bulk error
+      if (data.errors) {
+        errorBody = `Total Errors Count: ${data.totalCount}`
+        errorDetails = data.errors.map(err => {
+          return `
+          ${err.type}: ${err.code}
+          ${err.message}
+          ${err.parameters && typeof err.parameters === 'object' ? JSON.stringify(err.parameters) : err.parameters}
+          `
+        })
       }
       console.log(`
         ⚠️ ${chalk.bold.bgRed(errorTitle)}

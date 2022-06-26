@@ -53,6 +53,14 @@ const isValidNodeName = (input) => {
 }
 
 
+const isXMas = () => {
+	const date = new Date()
+	if (date.getMonth() === 11 || date.getMonth() === 0) {
+		return true
+	}
+}
+
+
 module.exports = {
 	isEmpty,
 	isValidHardwareId,
@@ -60,4 +68,5 @@ module.exports = {
 	isValidString,
 	checkValueRangeConstraints,
 	isValidNodeName,
+	isXMas,
 }

@@ -26,7 +26,7 @@ function colorize(attributes) {
 
 function logAttributes(fdn, attributes) {
   const output = `
-  ${chalk.yellow.bold('FDN')}: ${chalk.bold(fdn)}
+  ${chalk.yellow.bold('FDN')}: ${chalk.bold(fdn.replace(/\((\w+)\)/g, ''))}
 ${colorize(attributes)}`
   console.log(output)
 }
