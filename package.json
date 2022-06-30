@@ -1,6 +1,6 @@
 {
   "name": "enm-cli",
-  "version": "1.0.1a",
+  "version": "1.0.2a",
   "description": "This is a cli application for Ericsson Network Manager (ENM)",
   "bin": "./bin/enm-cli.js",
   "scripts": {
@@ -32,13 +32,20 @@
     "axios": "^0.21.2",
     "axios-cookiejar-support": "^1.0.1",
     "chalk": "^4.1.2",
+    "cli-table3": "^0.6.2",
     "commander": "^9.1.0",
     "dotenv": "^16.0.0",
     "form-data": "^4.0.0",
     "inquirer": "^8.2.2",
     "inquirer-autocomplete-prompt": "^2.0.0",
+    "inquirer-date-prompt": "^2.0.1",
     "inquirer-file-tree-selection-prompt": "^1.0.18",
     "ora": "^5.4.1",
     "tough-cookie": "^4.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vvsviridov/enm-cli.git"
+  },
+  "homepage": "https://github.com/vvsviridov/enm-cli"
 }

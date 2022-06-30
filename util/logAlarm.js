@@ -1,6 +1,4 @@
 const chalk = require('chalk')
-const eventTimeToString = require('./eventTimeToString')
-
 
 
 const timeValues = [
@@ -12,8 +10,12 @@ const timeValues = [
 
 
 function logAlarm(alarmList, eventPoId) {
-  const alarm = alarmList.filter(item => item.eventPoIdAsLong === eventPoId)[0]
-  timeValues.forEach(value => alarm[value] = eventTimeToString(alarm[value]))
+  const alarm = alarmList.find(item => item.eventPoIdAsLong === eventPoId)
+  timeValues.forEach(value => {
+    if (alarm[value]) {
+      alarm[value] = new Date(alarm[value]).toLocaleString()
+    }
+  })
   console.log(
     JSON.stringify(alarm, null, 2)
       .replace(/["(){}\[\]]/mg, '')

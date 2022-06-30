@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const inquirer = require('inquirer')
 
 
@@ -9,7 +10,7 @@ function createNext(filter) {
     ...choices,
     separator,
     ...commands.map(cmd => ({
-      name: `[${cmd}]`,
+      name: chalk.yellowBright.bold(`[${cmd}]`),
       value: cmd,
       short: cmd,
     })),

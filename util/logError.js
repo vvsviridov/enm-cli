@@ -47,7 +47,9 @@ function logError(err) {
           return `
           ${err.type}: ${err.code}
           ${err.message}
-          ${err.parameters && typeof err.parameters === 'object' ? JSON.stringify(err.parameters) : err.parameters}
+          ${err.parameters && typeof err.parameters === 'object'
+            ? JSON.stringify(err.parameters)
+            : err.parameters ?? ''}
           `
         })
       }

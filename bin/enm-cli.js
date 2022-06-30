@@ -7,7 +7,7 @@ const path = require('path')
 
 const { isEmpty } = require('../util/validation')
 
-require('dotenv').config({ path: [...__dirname.split(path.sep).slice(0,-1), '.env'].join(path.sep) })
+require('dotenv').config({ path: [...__dirname.split(path.sep).slice(0, -1), '.env'].join(path.sep) })
 
 const AutoProvisioning = require('../lib/applications/AutoProvisioning/AutoProvisioning')
 const TopologyBrowser = require('../lib/applications/TopologyBrowser/TopologyBrowser')
@@ -16,9 +16,7 @@ const BulkImport = require('../lib/applications/BulkImport/BulkImport')
 const logError = require('../util/logError')
 
 if (process.env.NODE_ENV === 'development') {
-	process.on('uncaughtException', function (exception) {
-	  console.log(exception); 
-	})
+	process.on('uncaughtException', (exception) => console.log(exception))
 }
 
 const applications = [
@@ -26,7 +24,7 @@ const applications = [
 		id: 'tplg',
 		appClass: TopologyBrowser,
 		name: 'Topology Browser',
-	}, 
+	},
 	{
 		id: 'prvn',
 		appClass: AutoProvisioning,
@@ -94,7 +92,7 @@ async function selectApplication() {
 				name: 'application',
 				prefix: '💾',
 				message: 'Select Application:',
-				choices: applications.map(item => ({name: item.name, value: item.id, short: item.id}))
+				choices: applications.map(item => ({ name: item.name, value: item.id, short: item.id }))
 			}])
 		selectedApp = input.application
 	}
@@ -115,4 +113,4 @@ async function main() {
 	}
 }
 
-;(async () => await main())()
+; (async () => await main())()
