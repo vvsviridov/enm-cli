@@ -24,7 +24,7 @@ function logError(err) {
       if (typeof data !== 'object') {
         errorBody = data
       }
-      if (data.errorCode) {
+      if (data.userMessage) {
         errorBody = `${data.errorCode}: ${data.userMessage.title}`
         errorDetails = data.userMessage.body
       }
@@ -48,8 +48,8 @@ function logError(err) {
           ${err.type}: ${err.code}
           ${err.message}
           ${err.parameters && typeof err.parameters === 'object'
-            ? JSON.stringify(err.parameters)
-            : err.parameters ?? ''}
+              ? JSON.stringify(err.parameters)
+              : err.parameters ?? ''}
           `
         })
       }
