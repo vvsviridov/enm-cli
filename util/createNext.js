@@ -11,7 +11,7 @@ function createNext(filter) {
     separator,
     ...commands.map(cmd => ({
       name: chalk.yellowBright.bold(`[${cmd}]`),
-      value: cmd,
+      value: `_${cmd}`,
       short: cmd,
     })),
     separator,
