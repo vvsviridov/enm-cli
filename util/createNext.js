@@ -16,9 +16,9 @@ function createNext(filter) {
     })),
     separator,
   ]
-  const findFilter = result.find(item => item.value === filter)
+  const findFilter = result.find(item => item.short === filter)
   if (findFilter) {
-    result = result.filter(item => item.value !== filter)
+    result = result.filter(item => item.short !== filter)
     result.unshift(findFilter)
   }
   return result
