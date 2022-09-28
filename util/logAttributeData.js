@@ -17,7 +17,7 @@ function logAttribute(key, attribute, output) {
 
 
 function logConstraints(constraints, output) {
-  output.push(`${chalk.blue(Object.keys({constraints}).pop().toLocaleUpperCase())}`)
+  output.push(`${chalk.blue(Object.keys({ constraints }).pop().toLocaleUpperCase())}`)
   if (constraints.valueRangeConstraints) {
     constraints.valueRangeConstraints.forEach(item => {
       output.push(`    ${chalk.yellow('Range')}: ${item.minValue}..${item.maxValue}`)
@@ -32,7 +32,7 @@ function logConstraints(constraints, output) {
 
 
 function logEnumeration(enumeration, output) {
-  output.push(`${chalk.blue(Object.keys({enumeration}).pop().toLocaleUpperCase())}
+  output.push(`${chalk.blue(Object.keys({ enumeration }).pop().toLocaleUpperCase())}
     ${chalk.cyan(enumeration.key)}
       ${enumeration.description}`)
   enumeration.enumMembers.forEach(item => output.push(`        ${chalk.yellow(item.key)} (${item.value}): -- ${chalk.gray(item.description)}`))
@@ -40,16 +40,19 @@ function logEnumeration(enumeration, output) {
 
 
 function logList(listReference, output) {
-  output.push(`${chalk.blue(Object.keys({listReference}).pop().toLocaleUpperCase())}
+  output.push(`${chalk.blue(Object.keys({ listReference }).pop().toLocaleUpperCase())}
     ${listReference.type}`)
-  if (listReference.constraints){
+  if (listReference.constraints) {
     logConstraints(listReference.constraints, output)
+  }
+  if (listReference.enumeration) {
+    logEnumeration(listReference.enumeration, output)
   }
 }
 
 
 function logAttributeData(attributeData) {
-  const attributeDataKeys = [ 
+  const attributeDataKeys = [
     'key',
     'type',
     'defaultValue',
