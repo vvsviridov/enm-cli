@@ -506,3 +506,5 @@ this.stream.clearLine(1);
 1.0.0 - is released
 
 1.0.2 - Bulk Import added
+
+1.0.5 - Fix AutoProvisioning errors
