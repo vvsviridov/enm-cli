@@ -10,7 +10,7 @@ function logAttribute(key, attribute, output) {
   let attrName = key.replace(/([A-Z])/g, ' $1')
   if (attribute !== undefined && attribute !== '') {
     output.push(`${chalk.blue(attrName.toLocaleUpperCase())}
-      ${attribute}
+    ${attribute}
     `)
   }
 }
@@ -42,16 +42,18 @@ function logEnumeration(enumeration, output) {
 function logList(listReference, output) {
   output.push(`${chalk.blue(Object.keys({ listReference }).pop().toLocaleUpperCase())}
     ${listReference.type}`)
-  if (listReference.constraints) {
-    logConstraints(listReference.constraints, output)
-  }
-  if (listReference.enumeration) {
-    logEnumeration(listReference.enumeration, output)
-  }
+  createOutput(listReference, output)
 }
 
 
-function logAttributeData(attributeData) {
+function logComplexRef(complexRef, output) {
+  output.push(`${chalk.blue(complexRef.key.toLocaleUpperCase())}
+    ${complexRef.description}`)
+  complexRef.attributes.forEach(attribute => createOutput(attribute, output))
+}
+
+
+function createOutput(attributeData, output) {
   const attributeDataKeys = [
     'key',
     'type',
@@ -67,9 +69,9 @@ function logAttributeData(attributeData) {
     'activeChoiceCase',
   ]
 
-  const output = [`
+  output.push(`
 ${chalk.yellow.bold(attributeData['key'])}: ${chalk.green(attributeData['type'])} ${logDefaultValue(attributeData['defaultValue'])}
-  `]
+  `)
   attributeDataKeys.slice(3).forEach((key) => logAttribute(key, attributeData[key], output))
   if (attributeData.constraints) {
     logConstraints(attributeData.constraints, output)
@@ -80,6 +82,15 @@ ${chalk.yellow.bold(attributeData['key'])}: ${chalk.green(attributeData['type'])
   if (attributeData.listReference) {
     logList(attributeData.listReference, output)
   }
+  if (attributeData.complexRef) {
+    logComplexRef(attributeData.complexRef, output)
+  }
+}
+
+
+function logAttributeData(attributeData) {
+  const output = []
+  createOutput(attributeData, output)
   console.log(output.join('\n') + '\n')
 }
 
