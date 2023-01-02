@@ -203,6 +203,9 @@ Authentication Successful
 - `[search]` - searching specified node in topology
 - `[sync]` - initiate node CM synchronization
 - `[persistent]` - toggle persistent attributes inclusion
+- `[amos]` - launch advanced moshell (amos)
+- `[scripting]` - launch shell terminal on scripting VM
+- `[wfcli]` - launch WinFIOL CLI
 - `[exit]` - logout and exit application
 
 Start typing and you see only matches commands to your input.
@@ -508,3 +511,5 @@ this.stream.clearLine(1);
 1.0.2 - Bulk Import added
 
 1.0.5 - Fix AutoProvisioning errors
+
+1.0.6 - Ability to launch amos, scripting shell terminal and winfiol cli
