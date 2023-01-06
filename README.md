@@ -1,11 +1,11 @@
-# Cli application based on ENM (Ericsson Network Manager) API
+# Cli application based on ENM (Ericsson Network Manager) REST API
 
 [![Github version](https://img.shields.io/github/package-json/version/vvsviridov/enm-cli?label=enm-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/enm-cli)
 [![Npm version](https://img.shields.io/npm/v/enm-cli?color=red&logo=npm&label=enm-cli)](https://www.npmjs.com/package/enm-cli)
 
 ## Main goal
 
-A simple CLI interface for some of the Ericsson Network Manager applications.
+A simple command line interface for some of the Ericsson Network Manager applications.
 
 ## Installation
 
@@ -39,7 +39,20 @@ npm link
 Now you can launch apllication
 
 ```
-enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
+> enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
+💾 Select Application: (Use arrow keys)
+> Topology Browser
+  Auto Provisioning
+  Bulk Import
+```
+
+## Store your credentials to file
+
+Create `.env` file in project's root folder and store your credentials as:
+
+```
+LOGIN=YourLogin
+PASSWORD=YourPassword
 ```
 
 ## Usage
@@ -56,7 +69,7 @@ Options:
   -V, --version                output the version number
   -l, --login <letters>        ENM User Login (env: LOGIN)
   -p, --password <letters>     ENM User Password (env: PASSWORD)
-  -a, --application <letters>  Start specified application (choices: "tplg", "prvn")
+  -a, --application <letters>  Start specified application (choices: "tplg", "prvn", "bulk")
   -u, --url <valid URL>        ENM Url
   -h, --help                   display help for command
 ```
@@ -167,7 +180,7 @@ Available commands are:
 - `[resume]` - Resuming the auto provisioning activity recommences an Auto Provisioning workflow that is suspended.
 - `[configurations]` - Uploading an auto provisioning configuration replaces a configuration file that was part of the initial Auto Provisioning node configuration.
 - `[siteinstall]` - Download Site Installation File (SIF) that is required to be taken on site for LMT Integration or LMT Hardware Replace.
-- `[back]` - Return to project\s nodes.
+- `[back]` - Return to project's nodes.
 - `[exit]` - Exit this app.
 
 # TopologyBrowser Application
@@ -207,6 +220,12 @@ Authentication Successful
 - `[scripting]` - launch shell terminal on scripting VM
 - `[wfcli]` - launch WinFIOL CLI
 - `[exit]` - logout and exit application
+
+### Advanced MOshell Scripting, Scripting Terminal and WinFIOL CLI
+
+These applications are executes on ENM virtual machines and does not required any local installation
+
+### Examples
 
 Start typing and you see only matches commands to your input.
 
@@ -506,7 +525,7 @@ this.stream.clearLine(1);
 
 ## Changes
 
-1.0.0 - is released
+1.0.0 - Is released
 
 1.0.2 - Bulk Import added
 
