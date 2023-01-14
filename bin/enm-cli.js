@@ -12,6 +12,7 @@ require('dotenv').config({ path: [...__dirname.split(path.sep).slice(0, -1), '.e
 const AutoProvisioning = require('../lib/applications/AutoProvisioning/AutoProvisioning')
 const TopologyBrowser = require('../lib/applications/TopologyBrowser/TopologyBrowser')
 const BulkImport = require('../lib/applications/BulkImport/BulkImport')
+const ShellTerminal = require('../lib/applications/ShellTerminal/ShellTerminal')
 
 const logError = require('../util/logError')
 
@@ -34,6 +35,11 @@ const applications = [
 		id: 'bulk',
 		appClass: BulkImport,
 		name: 'Bulk Import',
+	},
+	{
+		id: 'shll',
+		appClass: ShellTerminal,
+		name: 'Shell Terminal',
 	},
 ]
 const appIds = applications.map(item => item.id)
