@@ -1,58 +1,70 @@
-# Cli application based on ENM (Ericsson Network Manager) REST API
+# CLI application based on ENM (Ericsson Network Manager) REST API
 
 [![Github version](https://img.shields.io/github/package-json/version/vvsviridov/enm-cli?label=enm-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/enm-cli)
 [![Npm version](https://img.shields.io/npm/v/enm-cli?color=red&logo=npm&label=enm-cli)](https://www.npmjs.com/package/enm-cli)
 
-## Main goal
+## Key Features
 
-A simple command line interface for some of the Ericsson Network Manager applications.
+- 🚲 Simple and easy to use
+- 📟 Does not require GUI
+- 🚀 Faster than a web-browser
+- 🏗 Allows to make changes in config mode
+- 🤯 No needs to remember nodes IP addresses
 
 ## Installation
 
 First you need **node.js** which can be downloaded from official site [nodejs.org](https://nodejs.org/en/download/) and installed as described in the docs.
 
-Then you can run directly from NPM without installation
+### Run directly from NPM without installation
 
-```
-npx enm-cli -u https://enm.your.company.domain.com
-```
-
-Or install with NPM
-
-```
-npm i enm-cli
+```shell
+npx enm-cli -u https://enm.your.company.com
 ```
 
-Or download this repository and run from the project root directory ...
+### Install with NPM
 
+```shell
+npm install -g enm-cli
 ```
+
+### Download this repository and run from the project root directory
+
+```shell
 npm install
 ```
 
 ... to install dependencies,
 
-```
+```shell
 npm link
 ```
 
 ... to add application to your OS $PATH variable if you want to run it from anywhere.
-Now you can launch apllication
 
+## Store your credentials
+
+### Dotenv file
+
+Create `.env` file in project's root folder and store your credentials as:
+
+```shell
+LOGIN=YourLogin
+PASSWORD=YourPassword
 ```
+
+### Prompted by app
+
+By default you'll be prompted for username and password
+
+## Launch apllication
+
+```shell
 > enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
 💾 Select Application: (Use arrow keys)
 > Topology Browser
   Auto Provisioning
   Bulk Import
-```
-
-## Store your credentials to file
-
-Create `.env` file in project's root folder and store your credentials as:
-
-```
-LOGIN=YourLogin
-PASSWORD=YourPassword
+  Shell Terminal
 ```
 
 ## Usage
@@ -61,7 +73,7 @@ Recommended environment is Windows Terminal (not _cmd.exe_) or any shell with ri
 
 ### Help Page
 
-```
+```shell
 > enm-cli --help
 Usage: enm-cli [options]
 
@@ -69,16 +81,18 @@ Options:
   -V, --version                output the version number
   -l, --login <letters>        ENM User Login (env: LOGIN)
   -p, --password <letters>     ENM User Password (env: PASSWORD)
-  -a, --application <letters>  Start specified application (choices: "tplg", "prvn", "bulk")
+  -a, --application <letters>  Start specified application (choices: "tplg", "prvn", "bulk", "shll")
   -u, --url <valid URL>        ENM Url
   -h, --help                   display help for command
 ```
 
-# AutoProvisioning Application
+## AutoProvisioning Application
+
+![AutoProvisioning](img/render1673699059489.gif?raw=true 'AutoProvisioning')
 
 ### Connection
 
-```
+```shell
 >enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com -a prvn
 ✔ Login in...
 ✔ Getting projects...
@@ -100,7 +114,7 @@ Options:
 
 Start typing and you see only commands and projects matches input.
 
-```
+```shell
 323 projects> pro
 ──────────────
 ──────────────
@@ -124,7 +138,7 @@ Available commands are:
 - `[back]` - Return to projects.
 - `[exit]` - Exit this app.
 
-```
+```shell
 323 projects> Project1      (1) 1✅
 ✔ Getting Project1s status...
 ✔ Getting Project1s properties...
@@ -155,7 +169,7 @@ Project1> (Use arrow keys or type to search)
 
 Select node ...
 
-```
+```shell
 Project1 (RadioNode1) > (Use arrow keys or type to search)
   ──────────────
 > [status]
@@ -183,9 +197,11 @@ Available commands are:
 - `[back]` - Return to project's nodes.
 - `[exit]` - Exit this app.
 
-# TopologyBrowser Application
+## TopologyBrowser Application
 
-```
+![TopologyBrowser](img/render1673690475520.gif?raw=true 'TopologyBrowser')
+
+```shell
 PS C:\> enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domian.com -a tplg
 ✔ Login in...
 Authentication Successful
@@ -219,6 +235,7 @@ Authentication Successful
 - `[amos]` - launch advanced moshell (amos)
 - `[scripting]` - launch shell terminal on scripting VM
 - `[wfcli]` - launch WinFIOL CLI
+- `[nodecli]` - launch Node CLI
 - `[exit]` - logout and exit application
 
 ### Advanced MOshell Scripting, Scripting Terminal and WinFIOL CLI
@@ -229,7 +246,7 @@ These applications are executes on ENM virtual machines and does not required an
 
 Start typing and you see only matches commands to your input.
 
-```
+```shell
 SubNetwork=ONRM_ROOT_MO> subn
 > SubNetwork=Core
   SubNetwork=LTE
@@ -241,7 +258,7 @@ SubNetwork=ONRM_ROOT_MO> exi
 
 You can navigate to the next level selecting object ...
 
-```
+```shell
 SubNetwork=ONRM_ROOT_MO> subn
   SubNetwork=Core
   SubNetwork=LTE
@@ -255,7 +272,7 @@ SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC>
 
 View objects attributes ...
 
-```
+```shell
 SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC> show
 > show
 ✔ Reading Topology...
@@ -280,7 +297,7 @@ SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC> MeContext=RNC01
 
 ... show attributes with filter
 
-```
+```shell
 ... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> show Type
 > show type
 ✔ Reading Topology...
@@ -295,7 +312,7 @@ SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC> MeContext=RNC01
 
 Return one level up in FDN tree ...
 
-```
+```shell
 ... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> up
 > up
 ✔ Reading Topology...
@@ -304,7 +321,7 @@ SubNetwork=ONRM_ROOT_MO,SubNetwork=RNC>
 
 Return to the root from anywhere ...
 
-```
+```shell
 ... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> home
 > home
 ✔ Reading Topology...
@@ -313,13 +330,13 @@ SubNetwork=ONRM_ROOT_MO>
 
 Go to specific FDN ...
 
-```
+```shell
 ... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> fdn NetworkElement=RBS01
 ```
 
 And logout and exit ...
 
-```
+```shell
 ... Network=ONRM_ROOT_MO,SubNetwork=RNC,MeContext=RNC01> exit
 > exit
 ✔ Logout...
@@ -340,7 +357,7 @@ Available commands are:
 - `[end]` - end config mode without commiting
 - `[exit]` - logout and exit application
 
-```
+```shell
 ... ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1> config
 > config
 ✔ Reading Attributes...
@@ -366,7 +383,7 @@ Available commands are:
 
 To modify attribute select it ...
 
-```
+```shell
 ... lement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(config)# userLabel
 ... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)#
   commit
@@ -380,7 +397,7 @@ To modify attribute select it ...
 
 Now you can get it ...
 
-```
+```shell
 ... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# get
 > get
 
@@ -394,14 +411,14 @@ Now you can get it ...
 
 And set it's value ...
 
-```
+```shell
 ... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# set
 ? userLabel (STRING): ? test_label
 ```
 
 Check configuration before applying
 
-```
+```shell
 ... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# check
 
   FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RBS,MeContext=ERBS01,ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1
@@ -412,7 +429,7 @@ Check configuration before applying
 
 Applying changes to the network ...
 
-```
+```shell
 ... ent=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(userLabel)# commit
 
   FDN: SubNetwork=ONRM_ROOT_MO,SubNetwork=RBS,MeContext=ERBS01,ManagedElement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1
@@ -424,7 +441,7 @@ Success
 
 View attribute's description
 
-```
+```shell
 ... lement=ERBS01,ENodeBFunction=1,EUtranCellFDD=test1(config)# acBarringForCsfb
 ... S01,ENodeBFunction=1,EUtranCellFDD=test1(acBarringForCsfb)# description
 
@@ -498,6 +515,14 @@ CONSTRAINTS
     Nullable: false
     Value Resolution: null
 ```
+
+## Bulk Import
+
+![BulkImport](img/render1673699800882.gif?raw=true 'BulkImport')
+
+## Shell Terminal
+
+![ShellTerminal](img/render1673702182559.gif?raw=true 'ShellTerminal')
 
 ## Contribution
 
