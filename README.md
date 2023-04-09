@@ -1,9 +1,9 @@
-# CLI application based on ENM (Ericsson Network Manager) REST API
+# 💻 CLI application based on ENM (Ericsson Network Manager) REST API
 
 [![Github version](https://img.shields.io/github/package-json/version/vvsviridov/enm-cli?label=enm-cli&color=brightgreen&logo=github)](https://github.com/vvsviridov/enm-cli)
 [![Npm version](https://img.shields.io/npm/v/enm-cli?color=red&logo=npm&label=enm-cli)](https://www.npmjs.com/package/enm-cli)
 
-## Key Features
+## 🛠 Key Features
 
 - 🚲 Simple and easy to use
 - 📟 Does not require GUI
@@ -11,7 +11,7 @@
 - 🏗 Allows to make changes in config mode
 - 🤯 No needs to remember nodes IP addresses
 
-## Installation
+## 💾 Installation
 
 First you need **node.js** which can be downloaded from official site [nodejs.org](https://nodejs.org/en/download/) and installed as described in the docs.
 
@@ -41,7 +41,7 @@ npm link
 
 ... to add application to your OS $PATH variable if you want to run it from anywhere.
 
-## Store your credentials
+## 🔏 Store your credentials
 
 ### Dotenv file
 
@@ -56,7 +56,7 @@ PASSWORD=YourPassword
 
 By default you'll be prompted for username and password
 
-## Launch apllication
+## 🚀 Launch apllication
 
 ```shell
 > enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com
@@ -67,7 +67,7 @@ By default you'll be prompted for username and password
   Shell Terminal
 ```
 
-## Usage
+## 🕹 Usage
 
 Recommended environment is Windows Terminal (not _cmd.exe_) or any shell with rich formatting support. After application successfully launched youll see root content and available commands.
 
@@ -86,7 +86,7 @@ Options:
   -h, --help                   display help for command
 ```
 
-## AutoProvisioning Application
+## 🗂 AutoProvisioning Application
 
 ![AutoProvisioning](img/render1673699059489.gif?raw=true 'AutoProvisioning')
 
@@ -197,7 +197,7 @@ Available commands are:
 - `[back]` - Return to project's nodes.
 - `[exit]` - Exit this app.
 
-## TopologyBrowser Application
+## 🔭 TopologyBrowser Application
 
 ![TopologyBrowser](img/render1673690475520.gif?raw=true 'TopologyBrowser')
 
@@ -516,15 +516,15 @@ CONSTRAINTS
     Value Resolution: null
 ```
 
-## Bulk Import
+## 🗃 Bulk Import
 
 ![BulkImport](img/render1673699800882.gif?raw=true 'BulkImport')
 
-## Shell Terminal
+## ⌨️ Shell Terminal
 
 ![ShellTerminal](img/render1673702182559.gif?raw=true 'ShellTerminal')
 
-## Contribution
+## 📝 Contribution
 
 1. [Fork it]
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -532,7 +532,7 @@ CONSTRAINTS
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-## Known Issues
+## 🦠 Known Issues
 
 ### flickering issue
 
@@ -544,11 +544,11 @@ Add 1 to _clearLine()_ on this line
 this.stream.clearLine(1);
 ```
 
-## Credits
+## 💵 Credits
 
 [Contact Me](https://github.com/vvsviridov/) to request new feature or bugs reporting.
 
-## Changes
+## 💣 Changes
 
 1.0.0 - Is released
 

@@ -1,10 +1,10 @@
 {
   "name": "enm-cli",
-  "version": "1.0.6c",
+  "version": "1.0.6-c",
   "description": "This is a cli application for Ericsson Network Manager (ENM)",
   "bin": "./bin/enm-cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "example": "node ./bin/enm-cli.js -u https://example.com/api/v1/"
   },
   "keywords": [
     "Ericsson",
@@ -41,6 +41,7 @@
     "inquirer-date-prompt": "^2.0.1",
     "inquirer-file-tree-selection-prompt": "^1.0.18",
     "ora": "^5.4.1",
+    "semver": "^7.3.8",
     "tough-cookie": "^4.0.0",
     "ws": "^8.11.0"
   },
