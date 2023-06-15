@@ -236,6 +236,7 @@ Authentication Successful
 - `[scripting]` - launch shell terminal on scripting VM
 - `[wfcli]` - launch WinFIOL CLI
 - `[nodecli]` - launch Node CLI
+- `[enmdata]` - go to fdn NetworkElement=CurrentNode
 - `[exit]` - logout and exit application
 
 ### Advanced MOshell Scripting, Scripting Terminal and WinFIOL CLI
@@ -557,3 +558,7 @@ this.stream.clearLine(1);
 1.0.5 - Fix AutoProvisioning errors
 
 1.0.6 - Ability to launch amos, scripting shell terminal and winfiol cli
+
+1.0.7 - Check for updates
+
+1.0.8 - added `enmdata` command
