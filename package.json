@@ -1,6 +1,6 @@
 {
   "name": "enm-cli",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "This is a cli application for Ericsson Network Manager (ENM)",
   "bin": "./bin/enm-cli.js",
   "scripts": {
