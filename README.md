@@ -86,117 +86,6 @@ Options:
   -h, --help                   display help for command
 ```
 
-## 🗂 AutoProvisioning Application
-
-![AutoProvisioning](img/render1673699059489.gif?raw=true 'AutoProvisioning')
-
-### Connection
-
-```shell
->enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com -a prvn
-✔ Login in...
-✔ Getting projects...
-323 projects> (Use arrow keys or type to search)
-  ──────────────
-> [new]
-  [exit]
-  ──────────────
-  Project1      (1) 1✅
-  Project2      (2) 1✅ 1⌛
-  Project3      (2) 1❌ 1⌚
-  Project4      (1) 1❌
-```
-
-### Working with Projects
-
-- `[new]` - Import an Auto Provisioning project to start Auto Provisioning workflows based on the content of the AutoProvisioning project. The Auto Provisioning project file contains project related data in the projectInfo.xml file and node folders which contain configurations required to execute AutoProvisioning use-cases.
-- `[exit]` - Exit this app.
-
-Start typing and you see only commands and projects matches input.
-
-```shell
-323 projects> pro
-──────────────
-──────────────
-> Project1      (1) 1✅
-  Project2      (2) 1✅ 1⌛
-  Project3      (2) 1❌ 1⌚
-  Project4      (1) 1❌
-SubNetwork=ONRM_ROOT_MO> ex
-──────────────
->[exit]
-──────────────
-```
-
-### Working with Single Project
-
-Select project you want to work with.
-
-Available commands are:
-
-- `[delete]` - Delete of an Auto Provisioning project removes an Auto Provisioning project and all the Auto Provisioning data for nodes within that project. This includes removal or rollback of any ongoing Auto Provisioning workflows within that project.
-- `[back]` - Return to projects.
-- `[exit]` - Exit this app.
-
-```shell
-323 projects> Project1      (1) 1✅
-✔ Getting Project1s status...
-✔ Getting Project1s properties...
-
-    Project id    : Project1
-    Author        : Ericsson
-    Creation Date : 2019-01-06 11:23:39
-    Description   : Project1 description
-    Nodes         :
-
-      RadioNode1
-      RadioNode
-      3432-762-238
-      192.168.192.168
-      Successful
-      Integration Completed
-
-Project1> (Use arrow keys or type to search)
-  ──────────────
-> [delete]
-  [back]
-  [exit]
-  ──────────────
-  RadioNode1
-```
-
-### Wotking with Node
-
-Select node ...
-
-```shell
-Project1 (RadioNode1) > (Use arrow keys or type to search)
-  ──────────────
-> [status]
-  [properties]
-  [delete]
-  [bind]
-  [cancel]
-  [resume]
-  [configurations]
-  [siteinstall]
-  [back]
-(Move up and down to reveal more choices)
-```
-
-Available commands are:
-
-- `[status]` - Retrieving Auto Provisioning node status returns the node status information for each task that has been executed for the specified node.
-- `[properties]` - Retrieving Auto Provisioning node properties returns the node properties for each task that has been executed for the specified node.
-- `[delete]` - Delete an Auto Provisioning node removes the Auto Provisioning data for a Network Element. If a node is the last node in a project and there are no profiles associated with the project the project will automatically be deleted.
-- `[bind]` - Binding a hardware serial number to a node configuration associates the specified node configurations with a hardware serial number for Zero Touch Integration or Hardware Replace.
-- `[cancel]` - Cancelling the auto provisioning activity rolls back an AutoProvisoning workflow for Node Integration. For expansion a node is rolled back to it\s original configuration if additional configurations have been applied to the node.
-- `[resume]` - Resuming the auto provisioning activity recommences an Auto Provisioning workflow that is suspended.
-- `[configurations]` - Uploading an auto provisioning configuration replaces a configuration file that was part of the initial Auto Provisioning node configuration.
-- `[siteinstall]` - Download Site Installation File (SIF) that is required to be taken on site for LMT Integration or LMT Hardware Replace.
-- `[back]` - Return to project's nodes.
-- `[exit]` - Exit this app.
-
 ## 🔭 TopologyBrowser Application
 
 ![TopologyBrowser](img/render1673690475520.gif?raw=true 'TopologyBrowser')
@@ -355,6 +244,8 @@ Available commands are:
 - `[check]` - view configuration changes
 - `[get]` - get attribute value
 - `[set]` - set attribute value
+- `[abort]` - clear configuration and exit config mode
+- `[xml]` - export configuration to XML
 - `[end]` - end config mode without commiting
 - `[exit]` - logout and exit application
 
@@ -517,6 +408,117 @@ CONSTRAINTS
     Value Resolution: null
 ```
 
+## 🗂 AutoProvisioning Application
+
+![AutoProvisioning](img/render1673699059489.gif?raw=true 'AutoProvisioning')
+
+### Connection
+
+```shell
+>enm-cli -l USERNAME -p PASSWORD -u https://enm.your.company.domain.com -a prvn
+✔ Login in...
+✔ Getting projects...
+323 projects> (Use arrow keys or type to search)
+  ──────────────
+> [new]
+  [exit]
+  ──────────────
+  Project1      (1) 1✅
+  Project2      (2) 1✅ 1⌛
+  Project3      (2) 1❌ 1⌚
+  Project4      (1) 1❌
+```
+
+### Working with Projects
+
+- `[new]` - Import an Auto Provisioning project to start Auto Provisioning workflows based on the content of the AutoProvisioning project. The Auto Provisioning project file contains project related data in the projectInfo.xml file and node folders which contain configurations required to execute AutoProvisioning use-cases.
+- `[exit]` - Exit this app.
+
+Start typing and you see only commands and projects matches input.
+
+```shell
+323 projects> pro
+──────────────
+──────────────
+> Project1      (1) 1✅
+  Project2      (2) 1✅ 1⌛
+  Project3      (2) 1❌ 1⌚
+  Project4      (1) 1❌
+SubNetwork=ONRM_ROOT_MO> ex
+──────────────
+>[exit]
+──────────────
+```
+
+### Working with Single Project
+
+Select project you want to work with.
+
+Available commands are:
+
+- `[delete]` - Delete of an Auto Provisioning project removes an Auto Provisioning project and all the Auto Provisioning data for nodes within that project. This includes removal or rollback of any ongoing Auto Provisioning workflows within that project.
+- `[back]` - Return to projects.
+- `[exit]` - Exit this app.
+
+```shell
+323 projects> Project1      (1) 1✅
+✔ Getting Project1s status...
+✔ Getting Project1s properties...
+
+    Project id    : Project1
+    Author        : Ericsson
+    Creation Date : 2019-01-06 11:23:39
+    Description   : Project1 description
+    Nodes         :
+
+      RadioNode1
+      RadioNode
+      3432-762-238
+      192.168.192.168
+      Successful
+      Integration Completed
+
+Project1> (Use arrow keys or type to search)
+  ──────────────
+> [delete]
+  [back]
+  [exit]
+  ──────────────
+  RadioNode1
+```
+
+### Wotking with Node
+
+Select node ...
+
+```shell
+Project1 (RadioNode1) > (Use arrow keys or type to search)
+  ──────────────
+> [status]
+  [properties]
+  [delete]
+  [bind]
+  [cancel]
+  [resume]
+  [configurations]
+  [siteinstall]
+  [back]
+(Move up and down to reveal more choices)
+```
+
+Available commands are:
+
+- `[status]` - Retrieving Auto Provisioning node status returns the node status information for each task that has been executed for the specified node.
+- `[properties]` - Retrieving Auto Provisioning node properties returns the node properties for each task that has been executed for the specified node.
+- `[delete]` - Delete an Auto Provisioning node removes the Auto Provisioning data for a Network Element. If a node is the last node in a project and there are no profiles associated with the project the project will automatically be deleted.
+- `[bind]` - Binding a hardware serial number to a node configuration associates the specified node configurations with a hardware serial number for Zero Touch Integration or Hardware Replace.
+- `[cancel]` - Cancelling the auto provisioning activity rolls back an AutoProvisoning workflow for Node Integration. For expansion a node is rolled back to it\s original configuration if additional configurations have been applied to the node.
+- `[resume]` - Resuming the auto provisioning activity recommences an Auto Provisioning workflow that is suspended.
+- `[configurations]` - Uploading an auto provisioning configuration replaces a configuration file that was part of the initial Auto Provisioning node configuration.
+- `[siteinstall]` - Download Site Installation File (SIF) that is required to be taken on site for LMT Integration or LMT Hardware Replace.
+- `[back]` - Return to project's nodes.
+- `[exit]` - Exit this app.
+
 ## 🗃 Bulk Import
 
 ![BulkImport](img/render1673699800882.gif?raw=true 'BulkImport')
@@ -562,3 +564,5 @@ this.stream.clearLine(1);
 1.0.7 - Check for updates
 
 1.0.8 - added `enmdata` command
+
+1.0.9 - added ability to change multiple objects simultaneously and export configuration to XML
