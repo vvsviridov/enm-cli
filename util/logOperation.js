@@ -82,6 +82,7 @@ function logOperation(operation) {
     updateTime,
     fdn,
     failures,
+    breakpoint,
     attributes = [],
     currentAttributes = [],
   } = operation
@@ -91,6 +92,10 @@ function logOperation(operation) {
   ${chalk.yellowBright.bold('Status:      ')} ${statusColor(status)}
   ${chalk.yellowBright.bold('Update Time: ')} ${new Date(updateTime).toLocaleString()}
   ${chalk.yellowBright.bold('FDN:         ')} ${chalk.cyanBright.underline(fdn)}`)
+  if (breakpoint) {
+    console.log('')
+    console.log(`  ${chalk.blue.bold('Breakpoint 📌:')} ${breakpoint.type}_${breakpoint.id}: ${breakpoint.description}`)
+  }
   if (failures) {
     console.log(`  ${chalk.yellowBright.bold('Failures:    ')}`)
     failures.forEach(({ failureReason }) => console.log(`    ❌ ${chalk.redBright(failureReason)}`))
